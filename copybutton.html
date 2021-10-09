@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.wrapper {
+  position: relative;
+}
+#input {
+  position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;
+}
+
+</style>
+
+<script type="text/javascript">
+    function copyText() {
+      var text = document.getElementById("text").innerText;
+      var input = document.getElementById("input");
+      input.value = text; // 修改文本框的内容
+      input.select(); // 选中文本
+      document.execCommand("copy"); // 执行浏览器复制命令
+      alert("复制成功");
+    }
+  </script>
+
+<body>
+
+<div class="wrapper">
+   <p id="text"><?php echo $detail?></p>
+   <textarea id="input">这是幕后黑手</textarea>
+   <button onclick="copyText()">copy</button>
+</div>
+
+</body>
+</html>
