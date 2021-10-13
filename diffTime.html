@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="LeftTime">Document</title>
+</head>
+<style>
+
+</style>
+
+<script type="text/javascript">
+
+function getNowFormatDate() {
+  var date       = new Date();
+  var seperator1 = "-";
+  var year       = date.getFullYear();
+  var month      = date.getMonth() + 1;
+  var strDate    = date.getDate();
+  if (month >= 1 && month <= 9) {
+    month = "0" + month;
+  }
+  if (strDate >= 0 && strDate <= 9) {
+    strDate = "0" + strDate;
+  }
+  var currentdate = year + seperator1 + month + seperator1 + strDate;
+  return currentdate;
+}
+
+function FreshTime(){
+  var weekday = new Date().getDay();
+  if(weekday == 6){
+    var endtime      = new Date(today+", 17:00:00");//结束时间
+    var limittime1   = new Date(today+", 13:00:00");//分隔时间1
+  }else{
+    var endtime      = new Date(today+", 19:00:00");//结束时间
+    var limittime1   = new Date(today+", 13:30:00");//分隔时间1
+  }
+
+  var endtime      = new Date(today+", 19:00:00");//结束时间
+  var limittime1   = new Date(today+", 13:30:00");//分隔时间1
+
+  var endtimeint   = endtime.getTime();//结束时间时间戳
+  var limittimeint1 = limittime1.getTime();//分隔时间1时间戳
+
+  var limittime2    = new Date(today+", 12:00:00");//分隔时间2
+  var limittimeint2 = limittime2.getTime();//分隔时间2时间戳
+
+  var nowtime      = new Date();//当前时间
+  var nowtimeint   = nowtime.getTime();//当前时间时间戳
+
+  if(nowtimeint < limittimeint2){
+    var lefttime = parseInt((endtimeint-limittimeint1)/1000) + parseInt((limittimeint2-nowtimeint)/1000); 
+  }
+  if(nowtimeint > limittimeint2 && nowtimeint < limittimeint1){
+    var lefttime = parseInt((endtimeint-limittimeint1)/1000);
+  }
+  if(nowtimeint > limittimeint1){
+    var lefttime = parseInt((endtimeint-nowtimeint)/1000);
+  }
+
+  d = parseInt(lefttime/3600/24);
+  h = parseInt((lefttime/3600)%24);
+  m = parseInt((lefttime/60)%60);
+  s = parseInt(lefttime%60);
+
+  document.getElementById("LeftTime").innerHTML =  h + "小时" + m + "分" + s + "秒";
+}
+
+//当前日期
+today = getNowFormatDate()
+setInterval(FreshTime, 1000);
+
+</script>
+
+<body>
+
+<div>
+  <?php foreach($detail as $v):?>
+  <?=$v?>
+  <?php endforeach;?>
+</div>
+
+</body>
+</html>
