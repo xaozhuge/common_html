@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+
+<script type="text/javascript">
+
+function search(){
+  var keywords=document.getElementById('keywords').value
+  var url='http://192.168.1.37/test/test?keywords='+keywords;
+  window.location.href=url;
+}
+
+function reset(){
+  var url='http://192.168.1.37/test/test';
+  window.location.href=url;
+}
+
+function enterSeatch(event){
+  if(event.keyCode == 13){
+    search();
+  }
+}
+</script>
+
+<body>
+
+<input type="text" id='keywords' onkeydown="enterSeatch(event)" value="<?=$keywords ?>"> 
+<button onclick="search()">搜索</button>
+<button onclick="reset()">重置</button>
+
+<div>
+  <?php foreach($detail as $v):?>
+  <?=$v?>
+  <?php endforeach;?>
+</div>
+
+</body>
+</html>
