@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="LeftTime">Document</title>
+</head>
+<style>
+#update{
+  position:fixed;
+  top:40%;
+  right:5%;
+}
+</style>
+
+<script type="text/javascript">
+
+document.onmouseup = function (e) {
+  var selection = document.getSelection()
+  var selectionText = selection.toString()
+  if (selectionText.length > 1) {
+    document.getElementById('change_before').value=selectionText;
+    document.getElementById('change_after').value=selectionText;
+  }
+}
+
+function replacecontent(){
+  var change_before=document.getElementById('change_before').value;
+  var change_after=document.getElementById('change_after').value;
+  if(change_before.length == 0 || change_after.length == 0){
+    var url='http://192.168.1.37/test/test';
+  }else{
+    var url='http://192.168.1.37/test/test?change_before='+change_before+'&change_after='+change_after;
+  }
+  window.location.href=url;
+}
+
+</script>
+
+<body>
+
+<div id="update">
+  <div>
+    <input type="text" id='change_before' > 
+  </div>
+  <div>变化为</div>
+  <div>
+    <input type="text" id='change_after' > 
+  </div>
+  <div>
+    <button onclick="replacecontent()">执行替换</button>
+  </div>
+</div>
+
+
+<div>
+  <?php foreach($detail as $v):?>
+  <?=$v?>
+  <?php endforeach;?>
+</div>
+
+</body>
+</html>
