@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="LeftTime">Document</title>
+</head>
+<style>
+
+</style>
+
+<script type="text/javascript">
+
+window.onbeforeunload = function() {
+  var scrollPos  = window.pageYOffset;
+  var cookiename = "{$keywords}";
+  // 定义cookie保存时间 单位为ms
+  var lefttime   = 5000;
+  var timemodel  = new Date();
+  // 当前时间戳加上保存时间戳
+  timemodel.setTime(timemodel.getTime() + lefttime);
+  var expire_time = timemodel.toGMTString();
+  // 存储滚动条位置到cookies中 并设置过期时间
+  document.cookie = cookiename + "=" + scrollPos + ";expires=" + expire_time;
+}
+
+function scrollback(){
+  var cookiename = "{$keywords}";
+  if(getCookie(cookiename) != null){
+    setTimeout('toposition()', 50);
+  }
+}
+
+function toposition(){
+  var position = getCookie();
+  window.scrollTo(0, position);
+}
+
+function getCookie(){
+  var cookiename = "{$keywords}";
+  var cookielist = document.cookie.split(";");
+  for(var i=0; i < cookielist.length; i++) {
+    var acrumb = cookielist[i].split("=");
+    if(cookiename == acrumb[0].trim()) {
+      return unescape(acrumb[1]);
+    }
+  }
+  return null;
+}
+
+</script>
+
+<body onload=scrollback();>
+
+
+<div>
+  <?php foreach($detail as $v):?>
+  <?=$v?>
+  <?php endforeach;?>
+</div>
+
+</body>
+</html>
